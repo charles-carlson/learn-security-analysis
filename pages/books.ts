@@ -1,6 +1,7 @@
 import Book from '../models/book';
 import Author from '../models/author';
 import express from 'express';
+import { escapeHTML } from '../sanitizers/htmlEscape';
 
 const router = express.Router();
 
@@ -13,7 +14,7 @@ const showBooks = async (): Promise<string[] | void> => {
       return `${b._id} : ${b.title} : ${authorName}`;
     });
   } catch (err) {
-    console.log('Could not get books ' + err);
+    console.log('Could not get books ' + escapeHTML((err as Error).message));
   }
 }
 /**

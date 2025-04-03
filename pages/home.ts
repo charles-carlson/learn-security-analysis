@@ -4,6 +4,7 @@ import Book from '../models/book';
 import Author from '../models/author';
 import BookInstance from '../models/bookinstance';
 import Genre from '../models/genre';
+import { escapeHTML } from '../sanitizers/htmlEscape';
 
 const router = express.Router();
 
@@ -41,7 +42,7 @@ router.get('/stats', async (_, res: Response) => {
     res.send(msg);
   }
   catch (err: unknown) {
-    res.status(500).send('Error retrieving home data: ' + (err as Error).message);
+    res.status(500).send('Error retrieving home data: ' + escapeHTML((err as Error).message));
   }
 });
 
